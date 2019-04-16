@@ -6,6 +6,8 @@
 #define GLFW_GAMEWINDOW_HPP
 
 #include <GL/glew.h>
+#include <freetype2/ft2build.h>
+#include <FTGL/ftgl.h>
 #include <GLFW/glfw3.h>
 #include "../AView.hpp"
 #ifdef __APPLE__
@@ -59,6 +61,7 @@ private:
     t_glScr           _mcrR;//menu
     t_glScr           _gcrR;//target map
     int               _size_block;
+    FTGLPixmapFont*   _font;
 
     void LoadImage();
     void DrawEveryThing(t_glScr glScr, GLuint& drawThis);
@@ -85,8 +88,6 @@ public:
     void    drawChangeMap(int)   override;
 
     static int  _buttonStatus;
-//    SDL_Color           _tColor;
-//    static TTF_Font     *_font;
 };
 
 #endif

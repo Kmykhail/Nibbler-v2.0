@@ -5,7 +5,6 @@ add_custom_target(SDL_lib
         COMMAND make -C ${CMAKE_CURRENT_SOURCE_DIR}/SDL)
 add_custom_target(SFML_lib
         COMMAND make -C ${CMAKE_CURRENT_SOURCE_DIR}/SFML)
-
 add_custom_target(GL
         COMMAND make -C ${CMAKE_CURRENT_SOURCE_DIR}/GL)
 

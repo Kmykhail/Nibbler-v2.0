@@ -5,6 +5,7 @@
 #include "GL_lib.hpp"
 #include <thread>
 #include <string.h>
+#include <string>
 
 #define CREATE_TEXTURE(str) SOIL_load_OGL_texture(str, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT)
 
@@ -95,9 +96,7 @@ GL_lib::GL_lib(int weight, int height) {
     _size_block = (g_weight / 90);
 }
 
-GL_lib::~GL_lib() {
-
-}
+GL_lib::~GL_lib() {}
 
 void GL_lib::init()
 {
@@ -136,16 +135,21 @@ void GL_lib::init()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    char path[4096];
+    _dir = getwd(path);
+    size_t  n = _dir.rfind('/');
+    _dir.resize(n);
+
+    if (!(_font = new FTGLPixmapFont((_dir + font_path).c_str()))){
+        std::cerr << "Trouble load font" << std::endl;
+        exit(1);
+    }
+    _font->FaceSize(SizeFont * 2);
     LoadImage();
 }
 
 void GL_lib::LoadImage()
 {
-    char path[4096];
-    _dir = getwd(path);
-     size_t  n = _dir.rfind('/');
-    _dir.resize(n);
-
     /*************LOAD MAP TEXTURE*************/
     if (!(_map1 = CREATE_TEXTURE((_dir + map_1).c_str()))) {
         std::cerr << "Not load texture map" << std::endl;
@@ -341,79 +345,9 @@ void    GL_lib::drawBigFood(void *rect) {
 }
 
 void GL_lib::drawInterface(std::string clock, int score){
-
-//    SDL_Rect _area;
-//    SDL_Surface* sText = TTF_RenderText_Blended(_font, "QQQQQ", _tColor);
-//    if (!sText){
-//        TTF_CloseFont(_font);
-//        std::cerr << TTF_GetError() << std::endl;
-//        exit(-1);
-//    }
-//    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-//    glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
-//    glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
-//    glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
-//    SDL_Surface* temp = SDL_CreateRGBSurface(0, sText->w, sText->h, 32, 0x000000ff, 0x0000ff00, 0x00ff0000, 0x000000ff);
-//    if (!temp){
-//        std::cerr << TTF_GetError() << std::endl;
-//        exit(-1);
-//    }
-//    SDL_BlitSurface(sText, &_area, temp, NULL);
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sText->w, sText->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, temp->pixels);
-//    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-//    glEnable(GL_TEXTURE_2D);
-//    glBegin(GL_QUADS); {
-//        glTexCoord2d(0, 0); glVertex3f(0, 0, 0);
-//        glTexCoord2d(1, 0); glVertex3f(0 + sText->w, 0, 0);
-//        glTexCoord2d(1, 1); glVertex3f(0 + sText->w, 0 + sText->h, 0);
-//        glTexCoord2d(0, 1); glVertex3f(0, 0 + sText->h, 0);
-//    } glEnd();
-//    glDisable(GL_TEXTURE_2D);
-//    SDL_FreeSurface( sText );
-
-
-//    glMatrixMode(GL_MODELVIEW);
-//    glPushMatrix();
-//    glLoadIdentity();
-//
-//    gluOrtho2D(0, g_weight, 0, g_height); // m_Width and m_Height is the resolution of window
-//    glMatrixMode(GL_PROJECTION);
-//    glPushMatrix();
-//    glLoadIdentity();
-//
-//    glDisable(GL_DEPTH_TEST);
-//    glEnable(GL_TEXTURE_2D);
-//    glEnable(GL_BLEND);
-//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//
-//    GLuint texture;
-//    glGenTextures(1, &texture);
-//    glBindTexture(GL_TEXTURE_2D, texture);
-//    SDL_Surface * sFont = TTF_RenderText_Blended(_font, "QQQQQQQQQQQQQQQ", _tColor);
-//
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sFont->w, sFont->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, sFont->pixels);
-//
-//    glBegin(GL_QUADS);
-//    glTexCoord2f(0,0); glVertex2f(0, 0);
-//    glTexCoord2f(1,0); glVertex2f(0 + sFont->w, 0);
-//    glTexCoord2f(1,1); glVertex2f( + sFont->w, 0 + sFont->h);
-//    glTexCoord2f(0,1); glVertex2f(0, 0 + sFont->h);
-//    glEnd();
-//
-//    glDisable(GL_BLEND);
-//    glDisable(GL_TEXTURE_2D);
-//    glEnable(GL_DEPTH_TEST);
-//
-//    glMatrixMode(GL_PROJECTION);
-//    glPopMatrix();
-//    glMatrixMode(GL_PROJECTION);
-//    glPopMatrix();
-//
-//    glDeleteTextures(1, &texture);
-//    SDL_FreeSurface(sFont);
+    std::string scoreStr = "Score:   " + std::to_string(score);
+    _font->Render(clock.c_str(), clock.length(), FTPoint(100, (g_height + HEIGHT_SCOREBOARD  - (HEIGHT_SCOREBOARD / 2))* 2));
+    _font->Render(scoreStr.c_str(), scoreStr.length(), FTPoint((g_weight / 3) * 2, (g_height + HEIGHT_SCOREBOARD  - (HEIGHT_SCOREBOARD / 2))* 2) );
 }
 
 void GL_lib::drawTimeBigFood(int time) {
@@ -447,7 +381,7 @@ void GL_lib::drawChangeMap(int n) {
 }
 
 void GL_lib::cleanWindow() {
-    //TODO DELETE THIS CODE
+    delete _font;
     glfwDestroyWindow(_window);
     glfwTerminate();
 }

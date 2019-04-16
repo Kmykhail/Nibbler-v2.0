@@ -4,16 +4,19 @@ SRC = GL_lib.cpp
 
 FLAGS =  -std=c++11
 
-INC = -I ~/.brew/include -I SOIL/src
+INC = -I ~/.brew/include -I SOIL/src -I ~/.brew/include/freetype2
 
 LIBS = -L ~/.brew/lib  -lGLEW -lglfw
+
+T_LIBS = -L ~/.brew/lib -lftgl -lfreetype
+
 
 SOIL = SOIL/lib/libSOIL.a
 
 all: $(NAME)
 
 $(NAME):
-	g++ $(FLAGS) -dynamiclib -fPIC -o $(NAME) $(SRC) $(INC) $(LIBS) $(SOIL) -framework OpenGL -framework Appkit
+	g++ $(FLAGS) -dynamiclib -fPIC -o $(NAME) $(SRC) $(INC) $(LIBS) $(SOIL) $(T_LIBS) -framework OpenGL -framework Appkit
 	mv $(NAME) ..
 clean:
 	rm -f $(OBJ)
