@@ -7,7 +7,6 @@ int g_weight;
 int g_height;
 int g_lib;
 int HEIGHT_SCOREBOARD;
-int SizeFont;
 bool _mapInit;
 
 
@@ -27,39 +26,36 @@ int size(int n, int g){
 int main(int argc, char **argv){
 
     std::regex check("[\\s]*?\\d{3,4}[\\s]*?$");
-    if (argc != 4){//TODO must change on exception
-        std::cout << "usage: ???" << std::endl;
-        return -1;
-    }
-    for (int i = 1; i < argc; ++i) {
-        if (!std::regex_match(*(argv + i), (i != 3) ? check : std::regex("[\\s]*?\\d{1}[\\s]*?$"))){
-            std::cout << "usage: ???" << std::endl;//TODO must change on exception
-            return -1;
+    try {
+        if (argc != 4) {
+            throw std::logic_error("usage: [width] [height] [1|2|3]");
         }
-        if (i == 1) {
-            g_weight = size(std::stoi(*(argv + i)), 1);
-            if (g_weight > 1620 || g_weight < 720) {
-                std::cout << "Not valued weight" << std::endl;
-                return -1;
+        for (int i = 1; i < argc; ++i) {
+            if (!std::regex_match(*(argv + i), (i != 3) ? check : std::regex("[\\s]*?\\d{1}[\\s]*?$"))) {
+                throw std::logic_error("usage: [width] [height] [1|2|3]");
             }
-        }
-        else if (i == 2){
-            g_height = size(std::stoi(*(argv + i)), 2);
-            if (g_height > 1206 || g_height < 536) {
-                std::cout << "Not valued height" << std::endl;
-                return -1;
-            }
-        }
-        else if (i == 3){
-            g_lib = std::stoi(*(argv + i));;
-            if (g_lib > 3) {
-                {
-                    std::cout << "Not valued number of libraries" << std::endl;
-                    return -1;
+            if (i == 1) {
+                g_weight = size(std::stoi(*(argv + i)), 1);
+                if (g_weight > 1620 || g_weight < 720) {
+                    throw std::logic_error("width >= 720 && width <= 1620");
+                }
+            } else if (i == 2) {
+                g_height = size(std::stoi(*(argv + i)), 2);
+                if (g_height > 1206 || g_height < 536) {
+                    throw std::logic_error("height >= 536 && height <= 1206");
+                }
+            } else if (i == 3) {
+                g_lib = std::stoi(*(argv + i));;
+                if (g_lib > 3) {
+                    throw std::logic_error("usage: [width] [height] [1|2|3]");
                 }
             }
         }
+    }catch (std::exception& e){
+        std::cout << e.what() << std::endl;
+        exit(1);
     }
+
     if (g_lib == 2){
         g_weight *= 2;
         g_height *= 2;
@@ -67,9 +63,11 @@ int main(int argc, char **argv){
 
     HEIGHT_SCOREBOARD = g_weight / 14;
     _mapInit = false;
-
-    Game_Obj *obj = new Game_Obj;  //::getInstance();
-    obj->init();
-    delete obj;
+    try {
+        std::shared_ptr<Game_Obj> obj(new Game_Obj);
+        obj->init();
+    }catch(...){
+        std::cout << "Something wrong :)" << std::endl;
+    }
     return 0;
 }
