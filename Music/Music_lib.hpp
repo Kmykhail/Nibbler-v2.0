@@ -4,7 +4,7 @@
 #pragma once
 
 #include "SFML/Audio.hpp"
-#include "../Music.hpp"
+#include "Music.hpp"
 
 class Music_lib: public Music {
 public:

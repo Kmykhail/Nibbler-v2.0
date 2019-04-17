@@ -3,9 +3,9 @@
 //
 
 #include "SDL_lib.hpp"
-#include "../global.h"
+#include "global.h"
 #include <unistd.h>
-#include "../Mmap.hpp"
+#include "Mmap.hpp"
 #include <stdio.h>
 #define CREATE_TEXTURE(str) TextureManager::getInstance().LoadTexture(str)
 #define CREATE_TEXTURETEXT(str, color, tcrR) TextureManager::getInstance().LoadTextureText(str, color, tcrR)

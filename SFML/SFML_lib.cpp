@@ -3,10 +3,7 @@
 //
 
 #include "SFML_lib.hpp"
-#include "../global.h"
 #include <unistd.h>
-#include "../Mmap.hpp"
-#include "../header.h"
 
 const char tail_path[] = "/Picture/snake_tails.png";
 const char body_path[] = "/Picture/snake_body.png";

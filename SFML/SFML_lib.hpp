@@ -5,7 +5,10 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-#include "../AView.hpp"
+#include "AView.hpp"
+#include "Mmap.hpp"
+#include "header.h"
+#include "global.h"
 #include <map>
 
 

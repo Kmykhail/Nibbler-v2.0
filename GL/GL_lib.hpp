@@ -8,7 +8,7 @@
 #include <freetype2/ft2build.h>
 #include <FTGL/ftgl.h>
 #include <GLFW/glfw3.h>
-#include "../AView.hpp"
+#include "AView.hpp"
 #ifdef __APPLE__
     #include <GLUT/glut.h>
 #endif

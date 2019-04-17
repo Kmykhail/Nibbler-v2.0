@@ -8,12 +8,12 @@ FLAGS = -Wall -Wextra -Werror -std=c++11
 all: $(NAME)
 
 $(NAME):
-	g++ $(FLAGS) -dynamiclib -fPIC -o $(NAME) $(SRC) -I ~/.brew/include -L ~/.brew/lib -lsfml-system -lsfml-window -lsfml-graphics -lsfml-network -lsfml-audio -rpath ~/.brew/lib
+	@g++ $(FLAGS) -dynamiclib -fPIC -o $(NAME) $(SRC) -I ~/.brew/include -I ../inc/ -L ~/.brew/lib -lsfml-system -lsfml-window -lsfml-graphics -lsfml-network -lsfml-audio -rpath ~/.brew/lib
 	mv $(NAME) ..
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean:	clean
-	rm -f ../$(NAME)
+	@rm -f ../$(NAME)
 
 re: fclean all
