@@ -51,5 +51,4 @@ private:
     Game_Obj(const Game_Obj &) = delete;
     Game_Obj& operator=(const Game_Obj &) = delete;
     Game_Obj& operator=(Game_Obj&&) = delete;
-
 };

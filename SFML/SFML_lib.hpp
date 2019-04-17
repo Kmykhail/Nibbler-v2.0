@@ -15,23 +15,23 @@ public:
     SFML_lib(int g_weight, int g_height);
     virtual ~SFML_lib();
 
-void    init() override;
-void    initMap(int) override;
-void    render() override;
-void    drawMap() override;
-void    drawMenu(void*, void*, int) override;
-void    drawSnake(void*, int) override;
-void    delay(int) override;
-void    cleanWindow() override;
-void    drawFood(void*) override;
-void    drawBigFood(void*) override;
-void    drawInterface(std::string, int) override;
-void    drawTimeBigFood(int) override;
-void    renderClear() override;
-void    drawGameOver(int) override;
-void    drawChangeMap(int)   override;
-int     catchHook() override;
-uint32_t getTicks() override;
+    void    init() override;
+    void    initMap(int) override;
+    void    render() override;
+    void    drawMap() override;
+    void    drawMenu(void*, void*, int) override;
+    void    drawSnake(void*, int) override;
+    void    delay(int) override;
+    void    cleanWindow() override;
+    void    drawFood(void*) override;
+    void    drawBigFood(void*) override;
+    void    drawInterface(std::string, int) override;
+    void    drawTimeBigFood(int) override;
+    void    renderClear() override;
+    void    drawGameOver(int) override;
+    void    drawChangeMap(int)   override;
+    int     catchHook() override;
+    uint32_t getTicks() override;
 
 private:
     static sf::RenderWindow *_window;

@@ -140,11 +140,13 @@ void GL_lib::init()
     size_t  n = _dir.rfind('/');
     _dir.resize(n);
 
+    /*****************INIT FONT*****************/
     if (!(_font = new FTGLPixmapFont((_dir + font_path).c_str()))){
         std::cerr << "Trouble load font" << std::endl;
         exit(1);
     }
     _font->FaceSize(SizeFont * 2);
+
     LoadImage();
 }
 
@@ -207,8 +209,6 @@ void GL_lib::LoadImage()
         std::cerr << "textureGameOver not exist" << std::endl;
         exit(1);
     }
-    /************INIT TEXTURE FOR FONT************/
-
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 }
@@ -322,7 +322,6 @@ void GL_lib::drawSnake(void* rect, int b_block) {
 
     _scrR = *reinterpret_cast<t_glScr*>(rect);
     _scrR.y = (g_height + HEIGHT_SCOREBOARD) - _scrR.y - _size_block;
-
     DrawEveryThing(_scrR, _textureSnake[b_block]);
 }
 
@@ -340,7 +339,6 @@ void GL_lib::drawFood(void *rect) {
 void    GL_lib::drawBigFood(void *rect) {
     _fcrR = *reinterpret_cast<t_glScr*>(rect);
     _fcrR.y = (g_height + HEIGHT_SCOREBOARD) - _fcrR.y - (_size_block * 2);
-
     DrawEveryThing(_fcrR, _textureBigFood);
 }
 
@@ -362,6 +360,9 @@ void GL_lib::renderClear() {
 void GL_lib::drawGameOver(int score) {
     _gcrR = {(g_weight / 3), g_height / 3, g_weight / 3, g_height / 3};
     DrawEveryThing(_gcrR, _textureGameOver);
+    std::string scoreStr = "Score:   " + std::to_string(score);
+    _font->Render(scoreStr.c_str(), scoreStr.length(), FTPoint(((g_weight / 2) - HEIGHT_SCOREBOARD) * 2, (g_height / 3) * 2));
+    _font->Render("Please, press space key", 23, FTPoint(((g_weight / 2) - HEIGHT_SCOREBOARD * 2) * 2, g_height - (g_height - HEIGHT_SCOREBOARD)));
 }
 
 void GL_lib::drawChangeMap(int n) {

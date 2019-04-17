@@ -2,8 +2,7 @@
 // Created by kmykhailenko on 14.03.19.
 //
 
-#ifndef GLFW_GAMEWINDOW_HPP
-#define GLFW_GAMEWINDOW_HPP
+#pragma once
 
 #include <GL/glew.h>
 #include <freetype2/ft2build.h>
@@ -89,5 +88,3 @@ public:
 
     static int  _buttonStatus;
 };
-
-#endif

@@ -166,38 +166,36 @@ void SFML_lib::drawMenu(void* rectA, void* rectB, int typeMenu) {
         button.setPosition(B.x, B.y);
         _window->draw(button);
     }
-
     else {
-            button.setTexture(_buttonTexture["single"]);
-            size = button.getTexture()->getSize();
-            button.setScale(float(B.w)/size.x, float(B.h)/size.y);
-            button.setPosition(B.x, B.y);
-            _window->draw(button);
-            button.setTexture(_buttonTexture["multi"]);
-            size = button.getTexture()->getSize();
-            button.setScale(float(B.w)/size.x, float(B.h)/size.y);
-            B.y += B.h + 10;
-            button.setPosition(B.x, B.y);
-            _window->draw(button);
-            button.setTexture(_buttonTexture["option"]);
-            size = button.getTexture()->getSize();
-            button.setScale(float(B.w)/size.x, float(B.h)/size.y);
-            B.y += B.h + 10;
-            button.setPosition(B.x, B.y);
-            _window->draw(button);
-            button.setTexture(_buttonTexture["exit"]);
-            size = button.getTexture()->getSize();
-            button.setScale(float(B.w)/size.x, float(B.h)/size.y);
-            B.y += B.h + 10;
-            button.setPosition(B.x, B.y);
-            _window->draw(button);
+        button.setTexture(_buttonTexture["single"]);
+        size = button.getTexture()->getSize();
+        button.setScale(float(B.w)/size.x, float(B.h)/size.y);
+        button.setPosition(B.x, B.y);
+        _window->draw(button);
+        button.setTexture(_buttonTexture["multi"]);
+        size = button.getTexture()->getSize();
+        button.setScale(float(B.w)/size.x, float(B.h)/size.y);
+        B.y += B.h + 10;
+        button.setPosition(B.x, B.y);
+        _window->draw(button);
+        button.setTexture(_buttonTexture["option"]);
+        size = button.getTexture()->getSize();
+        button.setScale(float(B.w)/size.x, float(B.h)/size.y);
+        B.y += B.h + 10;
+        button.setPosition(B.x, B.y);
+        _window->draw(button);
+        button.setTexture(_buttonTexture["exit"]);
+        size = button.getTexture()->getSize();
+        button.setScale(float(B.w)/size.x, float(B.h)/size.y);
+        B.y += B.h + 10;
+        button.setPosition(B.x, B.y);
+        _window->draw(button);
     }
 }
 
 
 
 void SFML_lib::drawMap() {
-
     _window->pollEvent(_event);
     _window->clear();
     map.setPosition(0, height_scoreboard);
@@ -263,7 +261,7 @@ void SFML_lib::drawChangeMap(int n) {
     sf::RectangleShape t1(sf::Vector2f(360, 268));
     t1.setTexture(_map);
     t1.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
-   t1.setPosition(weight / 3, height / 3);
+    t1.setPosition(weight / 3, height / 3);
 
     _map = &_textureMap2;
     size = _textureMap2.getSize();

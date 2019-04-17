@@ -387,7 +387,6 @@ void SDL_lib::cleanWindow() {
 }
 
 extern "C"  AView* getInstance(int weight, int height) {
-
     return new SDL_lib(weight, height);
 }
 
