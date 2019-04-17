@@ -6,7 +6,6 @@
 
 #include "header.h"
 
-
 class Menu {
 public:
     Menu() noexcept;

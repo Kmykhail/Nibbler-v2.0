@@ -10,11 +10,11 @@
 class Interface {
 public:
     static Interface* getInstance();
-    void initInterface();
-    void changeTimeAndScore();
-    void setScore(int plus);
-    int getScore();
-    void restart();
+    void    initInterface();
+    void    changeTimeAndScore();
+    void    setScore(int plus);
+    int     getScore();
+    void    restart();
 private:
     static Interface *_inst;
     int score;
@@ -26,6 +26,4 @@ private:
     Interface(const Interface &) = delete;
     Interface& operator=(const Interface &) = delete;
     Interface& operator=(Interface &&) = delete;
-
-
 };

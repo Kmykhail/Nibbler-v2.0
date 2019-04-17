@@ -5,11 +5,7 @@
 #include "Interface.hpp"
 #include "global.h"
 #include "header.h"
-#include <iostream>
 #include "Game_Obj.hpp"
-//#include "SDL_lib.hpp"
-//#include "SFML_lib.hpp"
-//#include "Allegra_lib.hpp"
 
 Interface:: Interface() {
     score = 0;
@@ -28,7 +24,6 @@ Interface * Interface::getInstance() {
     }
     return _inst;
 }
-
 
 void Interface::setScore(int plus) {
     score = score + plus;

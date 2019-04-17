@@ -9,7 +9,6 @@
 
 int _numMap;
 
-
 Menu::Menu() noexcept {
     _size_block = g_weight / 90 + 20;//50 is scale for arrow
     _rectA.w = _rectA.h = _size_block;//rect for Arrow
@@ -47,7 +46,6 @@ bool Menu::changebutton() {
             return false;
         }
         if (_numButton == 1 && _typeMenu !=3){
-            std::cout << "change map" << std::endl;
             _numMap = 1;
             _selectMap = true;
             changeMap();
@@ -118,8 +116,6 @@ void Menu::changeSize() {
     _rectB.x = g_weight / 2 - (_size_block * 2) - 10;
     _rectB.y = _rectA.y; //button must be on the same level with arrow
     _numButton = 1;
-
-
 }
 
 Menu::~Menu() {}
