@@ -9,14 +9,13 @@
 
 class Interface {
 public:
-    static Interface* getInstance();
+    static Interface& getInstance();
     void    initInterface();
     void    changeTimeAndScore();
     void    setScore(int plus);
     int     getScore();
     void    restart();
 private:
-    static Interface *_inst;
     int score;
     int time;
     std::chrono::time_point<std::chrono::system_clock> start;

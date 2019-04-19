@@ -13,17 +13,14 @@ Interface:: Interface() {
 }
 
 Interface:: ~Interface() {
-    delete _inst;
+
 }
 
-Interface *Interface::_inst  = nullptr;
-
-Interface * Interface::getInstance() {
-    if (!_inst){
-        _inst = new Interface;
-    }
-    return _inst;
+Interface& Interface::getInstance() {
+    static Interface inst;
+    return inst;
 }
+
 
 void Interface::setScore(int plus) {
     score = score + plus;

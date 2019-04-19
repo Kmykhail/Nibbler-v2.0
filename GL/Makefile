@@ -4,13 +4,13 @@ SRC = GL_lib.cpp
 
 FLAGS =  -std=c++11
 
-INC = -I ~/.brew/include -I SOIL/src -I ~/.brew/include/freetype2 -I ../inc/
+INC = -I ~/.brew/include -I ~/.brew/SOIL/src -I ~/.brew/include/freetype2 -I ../inc/
 
 LIBS = -L ~/.brew/lib  -lGLEW -lglfw
 
 T_LIBS = -L ~/.brew/lib -lftgl -lfreetype
 
-SOIL = SOIL/lib/libSOIL.a
+SOIL = -L ~/.brew/SOIL/lib -lSOIL
 
 all: $(NAME)
 

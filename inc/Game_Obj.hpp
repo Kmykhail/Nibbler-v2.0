@@ -37,7 +37,6 @@ private:
     Logic   _logic;
     Menu    _menu;
     Food    _food;
-    Interface  *_interface;
     static void *dl_lib;
     static void *dl_music;
     static unsigned _frameDelay;

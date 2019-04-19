@@ -29,8 +29,7 @@ Food::~Food() {}
 void Food::mandatoryFood() {
     if (GET_VALUE_FROM_MAP(_coorLilFood.y_arr, _coorLilFood.x_arr) != -2){//-2 on array is food
         if (_coorLilFood.y_arr != 0 & _coorLilFood.x_arr != 0) {
-           Interface *qw = Interface::getInstance();
-           qw->setScore(10);
+           Interface::getInstance().setScore(10);
         }
         cntCreateFood++;
         int x = 0;
@@ -55,8 +54,7 @@ void Food::mandatoryFood() {
 void Food::surpriseFood() {
     if (GET_VALUE_FROM_MAP(_coorBigFood.y_arr, _coorBigFood.x_arr) != -3) {
         if(_drawBig == true) {
-            Interface *qw =  Interface::getInstance();
-            qw->setScore(50);
+            Interface::getInstance().setScore(50);
         }
         _drawBig = false;
         std::random_device rd;

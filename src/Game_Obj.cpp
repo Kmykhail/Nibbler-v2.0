@@ -67,7 +67,9 @@ bool Game_Obj::menu() {
 void Game_Obj::addMusicLib() {
     Music*		(*getInstance)();
 
-    dl_music = dlopen("../lib_Music.dylib", RTLD_LAZY);
+    int I = 0;
+//    dl_music = dlopen("../lib_Music.dylib", RTLD_LAZY);
+    dl_music = dlopen("lib_Music.dylib", RTLD_LAZY);
     if (!dl_music) {
         std::cerr << "dl_error" << std::endl;
         exit(1);
@@ -106,23 +108,29 @@ void Game_Obj::addNewSharedLib() {
 }
 
 void Game_Obj::init() {
-    library[0] = "../libSDL.dylib";
-    library[1] = "../libSFML.dylib";
-    library[2] = "../gl.dylib";
+//    library[0] = "../libSDL.dylib";
+//    library[1] = "../libSFML.dylib";
+//    library[2] = "../gl.dylib";
+    library[0] = "libSDL.dylib";
+    library[1] = "libSFML.dylib";
+    library[2] = "gl.dylib";
     addNewSharedLib();
     addMusicLib();
     music->init();
-    _interface = Interface::getInstance();
     viev->init();
     _menu.initMenu();
     if (!menu()){
         viev->cleanWindow();
         return;
     }
-    _interface->initInterface();
+
+    Interface::getInstance().initInterface();
+
     viev->drawMap();
     _logic.init(1);
-    _interface->changeTimeAndScore();
+
+    Interface::getInstance().changeTimeAndScore();
+
     _food.updateFood();
     viev->render();
     main_loop();
@@ -159,7 +167,7 @@ bool Game_Obj::escapeLogic() {
     music->playGame_over();
     while(handleEvent() != 32 ){
         viev->renderClear();
-        viev->drawGameOver(_interface->getScore());
+        viev->drawGameOver(Interface::getInstance().getScore());
         frameTime = viev->getTicks() - frameStart;
         if (frameDealy > frameTime && frameTime >= 0){
             viev->delay(frameDealy - frameTime);
@@ -169,7 +177,7 @@ bool Game_Obj::escapeLogic() {
     if (!menu()){
         return false;
     }
-    _interface->restart();
+    Interface::getInstance().restart();
     music->playMusic();
     return true;
 }
@@ -239,7 +247,6 @@ int Game_Obj::handleEvent() {
 void Game_Obj::update() {
     viev->drawMap();
     _logic.move();
-   _interface->changeTimeAndScore();
+    Interface::getInstance().changeTimeAndScore();
    _food.updateFood();
-
 }

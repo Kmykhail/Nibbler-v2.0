@@ -137,16 +137,16 @@ void GL_lib::init()
 
     char path[4096];
     _dir = getwd(path);
-    size_t  n = _dir.rfind('/');
-    _dir.resize(n);
 
     /*****************INIT FONT*****************/
+
+    _font = nullptr;
     if (!(_font = new FTGLPixmapFont((_dir + font_path).c_str()))){
         std::cerr << "Trouble load font" << std::endl;
         exit(1);
     }
-    _font->FaceSize(SizeFont * 2);
 
+    _font->FaceSize(SizeFont * 2);
     LoadImage();
 }
 
@@ -211,6 +211,7 @@ void GL_lib::LoadImage()
     }
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    std::cout << "LOAD DONE" << std::endl;
 }
 
 void GL_lib::DrawEveryThing(t_glScr glScr, GLuint &drawThis) {
@@ -366,17 +367,17 @@ void GL_lib::drawGameOver(int score) {
 }
 
 void GL_lib::drawChangeMap(int n) {
-    _gcrR = {g_weight / 3, g_height / 3, 180, 134};
+    _gcrR = {g_weight / 4, g_height / 3, 180, 134};
     DrawEveryThing(_gcrR, _map1);
-    _gcrR = {(g_weight / 3) + 180 + HEIGHT_SCOREBOARD, g_height / 3, 180, 134};
+    _gcrR = {(g_weight / 4) + 180 + HEIGHT_SCOREBOARD, g_height / 3, 180, 134};
     DrawEveryThing(_gcrR, _map2);
 
     t_glScr square;
     if (n == 1){
-        square = {(g_weight / 3)  - 10, (g_height / 3) - 10, 200, 150};
+        square = {(g_weight / 4)  - 10, (g_height / 3) - 10, 200, 150};
     }
     else if (n == 2) {
-        square = {(g_weight / 3) + (90 * 2) + HEIGHT_SCOREBOARD - 10, (g_height / 3) - 10, 200, 150};
+        square = {(g_weight / 4) + (90 * 2) + HEIGHT_SCOREBOARD - 10, (g_height / 3) - 10, 200, 150};
     }
     DrawEveryThing(square, (n == 1) ? _map1 : _map2);
 }

@@ -26,6 +26,7 @@ include_directories(${INCLUDE_DIR})
 link_directories(${LIBRARY})
 
 include_directories(${INC})
+link_directories(${INC})
 
 message(STATUS "dir = '${CMAKE_CURRENT_SOURCE_DIR}'")
 

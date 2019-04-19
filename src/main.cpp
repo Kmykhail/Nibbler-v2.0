@@ -32,7 +32,7 @@ int main(int argc, char **argv){
         }
         for (int i = 1; i < argc; ++i) {
             if (!std::regex_match(*(argv + i), (i != 3) ? check : std::regex("[\\s]*?\\d{1}[\\s]*?$"))) {
-                throw std::logic_error("usage: [width] [height] [1|2|3]");
+                throw std::logic_error("usage: [width >= 720 && width <= 1620] [height >= 536 && height <= 1206] [1|2|3]");
             }
             if (i == 1) {
                 g_weight = size(std::stoi(*(argv + i)), 1);

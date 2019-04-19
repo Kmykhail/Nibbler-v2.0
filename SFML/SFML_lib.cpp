@@ -258,14 +258,14 @@ void SFML_lib::drawChangeMap(int n) {
     sf::RectangleShape t1(sf::Vector2f(360, 268));
     t1.setTexture(_map);
     t1.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
-    t1.setPosition(weight / 3, height / 3);
+    t1.setPosition(weight / 4, height / 3);
 
     _map = &_textureMap2;
     size = _textureMap2.getSize();
     sf::RectangleShape t2(sf::Vector2f(360, 268));
     t2.setTexture(_map);
     t2.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
-    t2.setPosition((weight / 3) + (90 * 4) +height_scoreboard, height / 3);
+    t2.setPosition((weight / 4) + (90 * 4) +height_scoreboard, height / 3);
     if (n == 1) {
         t1.setOutlineThickness(10.f);
         t1.setOutlineColor(sf::Color(250, 150, 100));

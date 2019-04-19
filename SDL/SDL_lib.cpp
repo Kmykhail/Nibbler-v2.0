@@ -89,8 +89,7 @@ void SDL_lib::init() {
     SDL_RenderClear(renderer);
     char path[4096];
     _dir = getwd(path);
-   // size_t  n = _dir.rfind('/');
-    //_dir.resize(n); //TODO investigate PATH of PICTURES
+
     /************INIT TEXTURE FOR BUTTON***********/
     _buttonTexture = {{"single", CREATE_TEXTURE((_dir + buttonSingle_path).c_str())}, {"multi", CREATE_TEXTURE((_dir + buttonMulti_path).c_str())},
                       {"continue", CREATE_TEXTURE((_dir + buttonContinue_path).c_str())}, {"option", CREATE_TEXTURE((_dir + buttonOption_path).c_str())},
@@ -341,17 +340,17 @@ void SDL_lib::drawChangeMap(int n) {
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderClear(renderer);
 
-    _gcrR = {g_weight / 3, g_height / 3, 180, 134};
+    _gcrR = {g_weight / 4, g_height / 3, 180, 134};
     SDL_RenderCopy(renderer, _map1, nullptr, &_gcrR);
 
-    _gcrR = {(g_weight / 3) + 180 + HEIGHT_SCOREBOARD, g_height / 3, 180, 134};
+    _gcrR = {(g_weight / 4) + 180 + HEIGHT_SCOREBOARD, g_height / 3, 180, 134};
     SDL_RenderCopy(renderer, _map2, nullptr, &_gcrR);
 
     SDL_Rect r;
     if (n == 1) {
-        r = {(g_weight / 3)  - 10, (g_height / 3) - 10, 200, 150};
+        r = {(g_weight / 4)  - 10, (g_height / 3) - 10, 200, 150};
     } else if (n == 2) {
-        r = {(g_weight / 3) + (90 * 2) + HEIGHT_SCOREBOARD - 10, (g_height / 3) - 10, 200, 150};
+        r = {(g_weight / 4) + (90 * 2) + HEIGHT_SCOREBOARD - 10, (g_height / 3) - 10, 200, 150};
     }
 
     SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255);
