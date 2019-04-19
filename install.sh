@@ -66,11 +66,16 @@ else
 fi
 
 echo "\033[0;33mDownloading and installing a SOIL library (macos compatible)...\033[0m"
-curl -O http://www.lonesock.net/files/soil.zip
-unzip  soil.zip && mv "Simple OpenGL Image Library" "SOIL"
-rm -rf soil.zip
-cd SOIL/lib && rm -rf libSOIL.a
-cd SOIL/projects/makefile && mkdir obj
-cd SOIL/projects/makefile && make
-mv SOIL ~/.brew/
-echo "\033[0;32mSOIL installation completed\033[0m"
+if (cd ~/.brew/SOIL); then
+  echo "\033[0;32mSOIL is already installed\033[0m"
+else
+  curl -O http://www.lonesock.net/files/soil.zip
+  unzip  soil.zip
+  mv "Simple OpenGL Image Library" "SOIL"
+  rm -rf soil.zip
+  mv SOIL ~/.brew/
+  cd ~/.brew/SOIL/lib && rm -rf libSOIL.a
+  cd ~/.brew/SOIL/projects/makefile/ && mkdir obj
+  cd ~/.brew/SOIL/projects/makefile/ && make
+  echo "\033[0;32mSOIL installation completed\033[0m"
+fi

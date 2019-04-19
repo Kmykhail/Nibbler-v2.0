@@ -39,7 +39,7 @@ void Music_lib::init() {
     }
     crash.setBuffer(buffer3);
     crash.setVolume(200);
-    if( !buffer4.loadFromFile("Picture/game_over2.wav")){
+    if( !buffer4.loadFromFile("Picture/game_over3.wav")){
         std::cout << "ERRorghgh" << std::endl;
         exit(1);
     }

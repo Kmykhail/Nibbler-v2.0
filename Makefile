@@ -10,7 +10,7 @@ CFLAGS = -std=c++11
 
 CC = g++
 
-all:	$(NAME)
+all:install	$(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -o $(NAME) $(SRC) $(INC)
@@ -22,9 +22,8 @@ $(NAME): $(OBJ)
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-# install: fclean
-# sh install.sh
-# make
+install: fclean
+	sh install.sh
 
 clean:
 	@rm -f $(OBJ)
