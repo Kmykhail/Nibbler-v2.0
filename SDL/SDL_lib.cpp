@@ -58,7 +58,6 @@ SDL_lib::SDL_lib(int weight, int height) {
 
 SDL_lib::~SDL_lib() {
     std::cout << "CLOSE LIB SDL" << std::endl;
-
 }
 
 
@@ -155,7 +154,6 @@ void SDL_lib::init() {
         std::cout << TTF_GetError() << std::endl;
         exit(-1);
     }
-   // std::cout << "FONT_PATH: " << _dir + font_path << std::endl;
 
     if (!(_font = TTF_OpenFont((_dir + font_path).c_str(), SizeFont))){//TODO change size font on variable
         std::cerr << "textureText not exist" << std::endl;

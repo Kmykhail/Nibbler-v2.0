@@ -164,7 +164,14 @@ bool Game_Obj::escapeLogic() {
     _logic.restart();
     _food.restart();
     music->playGame_over();
-    while(handleEvent() != 32 ){
+    while(1){
+        int key = handleEvent();
+        if (key == 32){
+            break;
+        }
+        if (key == -1){
+            return false;
+        }
         viev->renderClear();
         viev->drawGameOver(Interface::getInstance().getScore());
         frameTime = viev->getTicks() - frameStart;

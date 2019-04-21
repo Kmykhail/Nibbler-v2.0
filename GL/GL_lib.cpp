@@ -96,7 +96,9 @@ GL_lib::GL_lib(int weight, int height) {
     _size_block = (g_weight / 90);
 }
 
-GL_lib::~GL_lib() {}
+GL_lib::~GL_lib() {
+    std::cout << "CLOSE LIB OpenGL" << std::endl;
+}
 
 void GL_lib::init()
 {
@@ -269,6 +271,9 @@ void GL_lib::initMap(int n) {
 
 int GL_lib::catchHook() {
     glfwPollEvents();
+    if (glfwWindowShouldClose(_window)){
+        return -1;
+    }
     int sym = _buttonStatus;
     _buttonStatus = 0;
     return sym;

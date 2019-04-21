@@ -24,6 +24,7 @@ const char font_path[] = "/Picture/ArialItalic.ttf";
 sf::RenderWindow* SFML_lib::_window = nullptr;
 
 SFML_lib::SFML_lib() {
+    std::cout << "CLOSE LIB SFML" << std::endl;
 }
 
 SFML_lib::SFML_lib(int g_weight, int g_height) {
