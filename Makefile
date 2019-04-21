@@ -6,7 +6,7 @@ INC = -I inc/
 
 OBJ = $(S_SRC:.cpp=.o)
 
-CFLAGS = -std=c++11
+CFLAGS = -Wall -Wextra -Werror -std=c++11
 
 CC = g++
 

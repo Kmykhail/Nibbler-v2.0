@@ -67,7 +67,6 @@ bool Game_Obj::menu() {
 void Game_Obj::addMusicLib() {
     Music*		(*getInstance)();
 
-    int I = 0;
 //    dl_music = dlopen("../lib_Music.dylib", RTLD_LAZY);
     dl_music = dlopen("lib_Music.dylib", RTLD_LAZY);
     if (!dl_music) {
@@ -113,7 +112,7 @@ void Game_Obj::init() {
 //    library[2] = "../gl.dylib";
     library[0] = "libSDL.dylib";
     library[1] = "libSFML.dylib";
-    library[2] = "gl.dylib";
+    library[2] = "libGL.dylib";
     addNewSharedLib();
     addMusicLib();
     music->init();

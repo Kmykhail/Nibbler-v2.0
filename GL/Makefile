@@ -1,8 +1,10 @@
-NAME = gl.dylib
+NAME = libGL.dylib
 
 SRC = GL_lib.cpp
 
-FLAGS =  -std=c++11
+CFLAGS = -std=c++11 -dynamiclib -fPIC
+
+CC = g++
 
 INC = -I ~/.brew/include -I ~/.brew/SOIL/src -I ~/.brew/include/freetype2 -I ../inc/
 
@@ -14,9 +16,11 @@ SOIL = -L ~/.brew/SOIL/lib -lSOIL
 
 all: $(NAME)
 
-$(NAME):
-	@g++ $(FLAGS) -dynamiclib -fPIC -o $(NAME) $(SRC) $(INC) $(LIBS) $(SOIL) $(T_LIBS) -framework OpenGL -framework Appkit
+$(NAME):$(OBJ)
+	@$(CC) $(CFLAGS) -o $(NAME) $(SRC) $(INC) $(LIBS) $(SOIL) $(T_LIBS) -framework OpenGL -framework Appkit
 	@mv $(NAME) ..
+	@echo "\033[0;32mLib OpenGL built\033[0m"
+
 clean:
 	@rm -f $(OBJ)
 

@@ -10,7 +10,7 @@ int HEIGHT_SCOREBOARD;
 bool _mapInit;
 
 
-int size(int n, int g){
+int Scale(int n, int g){
     if (g == 1) {
         if (n % 90 == 0)
             return n;
@@ -34,22 +34,20 @@ int main(int argc, char **argv){
             if (!std::regex_match(*(argv + i), (i != 3) ? check : std::regex("[\\s]*?\\d{1}[\\s]*?$"))) {
                 throw std::logic_error("usage: [width >= 720 && width <= 1620] [height >= 536 && height <= 1206] [1|2|3]");
             }
-            if (i == 1) {
-                g_weight = size(std::stoi(*(argv + i)), 1);
-                if (g_weight > 1620 || g_weight < 720) {
-                    throw std::logic_error("width >= 720 && width <= 1620");
-                }
-            } else if (i == 2) {
-                g_height = size(std::stoi(*(argv + i)), 2);
-                if (g_height > 1206 || g_height < 536) {
-                    throw std::logic_error("height >= 536 && height <= 1206");
-                }
-            } else if (i == 3) {
-                g_lib = std::stoi(*(argv + i));;
-                if (g_lib > 3) {
-                    throw std::logic_error("usage: [width] [height] [1|2|3]");
-                }
-            }
+        }
+        g_weight = Scale(std::stoi(argv[1]), 1);
+        if (g_weight > 1620 || g_weight < 720) {
+            throw std::logic_error("width >= 720 && width <= 1620");
+        }
+
+        g_height = Scale(std::stoi(argv[2]), 2);
+        if (g_height > 1206 || g_height < 536) {
+            throw std::logic_error("height >= 536 && height <= 1206");
+        }
+
+        g_lib = std::stoi(argv[3]);;
+        if (g_lib > 3 || g_lib < 1) {
+            throw std::logic_error("usage: [width] [height] [1|2|3]");
         }
     }catch (std::exception& e){
         std::cout << e.what() << std::endl;

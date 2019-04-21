@@ -40,7 +40,7 @@
 class AView {
 public:
     AView()  {}
-    ~AView(){}
+    virtual ~AView(){}
     virtual void    init() = 0;//инит окна и прочего
     virtual void    initMap(int) = 0;
     virtual int     catchHook() = 0; //ловим хуки от клавиш

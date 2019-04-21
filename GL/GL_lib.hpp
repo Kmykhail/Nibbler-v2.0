@@ -50,7 +50,6 @@ private:
     GLuint          _textureArrow;
     GLuint          _textureLine;
     GLuint          _textureGameOver;
-    GLuint          _textureScore;
     std::map<std::string, GLuint>   _textureButton;
     std::map<int, GLuint > _textureSnake;
 
