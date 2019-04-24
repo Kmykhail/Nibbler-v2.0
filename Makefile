@@ -1,4 +1,4 @@
-NAME = Nibller
+NAME = Nibbler
 
 SRC = src/main.cpp src/Menu.cpp src/Game_Obj.cpp src/Logic.cpp src/Mmap.cpp src/Food.cpp src/Interface.cpp
 

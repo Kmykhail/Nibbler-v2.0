@@ -165,7 +165,6 @@ void SDL_lib::init() {
         exit(1);
     }
     _tColor = {107,142,35, 0};
-
 }
 
 void SDL_lib::initMap(int n) {
@@ -182,7 +181,7 @@ void SDL_lib::initMap(int n) {
             std::cerr << "textuteMap not exist" << std::endl;
             exit(1);
         }       
-    }   
+    }
 }
 
 
@@ -256,17 +255,17 @@ void SDL_lib::drawMenu(void* rectA, void* rectB, int typeMenu) {
     if (typeMenu == 3){
         SDL_RenderCopy(renderer, _buttonTexture["continue"], nullptr, & _mcrR);
         _mcrR.y += _mcrR.h + 10;// distance between continue and multi option
-        SDL_RenderCopy(renderer, _buttonTexture["option"], nullptr, &_mcrR);
-        _mcrR.y += _mcrR.h + 10;// distance between option and multi exit
+//        SDL_RenderCopy(renderer, _buttonTexture["option"], nullptr, &_mcrR);
+//        _mcrR.y += _mcrR.h + 10;// distance between option and multi exit
         SDL_RenderCopy(renderer, _buttonTexture["exit"], nullptr, &_mcrR);
     }
     else {
         SDL_RenderCopy(renderer, _buttonTexture["single"], nullptr, &_mcrR);//single player
         _mcrR.y += _mcrR.h + 10;// distance between single and multi button
-        SDL_RenderCopy(renderer, _buttonTexture["multi"], nullptr, &_mcrR);//multi player
-        _mcrR.y += _mcrR.h + 10;// distance between multi and option
-        SDL_RenderCopy(renderer, _buttonTexture["option"], nullptr, &_mcrR);
-        _mcrR.y += _mcrR.h + 10;// distance between option and exit
+//        SDL_RenderCopy(renderer, _buttonTexture["multi"], nullptr, &_mcrR);//multi player
+//        _mcrR.y += _mcrR.h + 10;// distance between multi and option
+//        SDL_RenderCopy(renderer, _buttonTexture["option"], nullptr, &_mcrR);
+//        _mcrR.y += _mcrR.h + 10;// distance between option and exit
         SDL_RenderCopy(renderer, _buttonTexture["exit"], nullptr, &_mcrR);
     }
 }
@@ -334,7 +333,6 @@ void SDL_lib::drawGameOver(int score) {
 
 }
 void SDL_lib::drawChangeMap(int n) {
-    (void)n;
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderClear(renderer);
 
@@ -347,7 +345,8 @@ void SDL_lib::drawChangeMap(int n) {
     SDL_Rect r;
     if (n == 1) {
         r = {(g_weight / 4)  - 10, (g_height / 3) - 10, 200, 150};
-    } else if (n == 2) {
+    }
+    else if (n == 2) {
         r = {(g_weight / 4) + (90 * 2) + HEIGHT_SCOREBOARD - 10, (g_height / 3) - 10, 200, 150};
     }
 
@@ -381,6 +380,7 @@ void SDL_lib::cleanWindow() {
     SDL_DestroyWindow(_window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
+    std::cout << "cleanWindow" << std::endl;
 }
 
 extern "C"  AView* getInstance(int weight, int height) {

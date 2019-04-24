@@ -42,10 +42,10 @@ bool Menu::changebutton() {
     }
     if (_key == 36){//enter, which mean that player chosed number of players
         _key = 0;
-        if ((_typeMenu == 3 && _numButton == 3) || (_typeMenu != 3 && _numButton == 4)){
+        if (_numButton == 2){
             return false;
         }
-        if (_numButton == 1 && _typeMenu !=3){
+        if (_numButton == 1){
             _numMap = 1;
             _selectMap = true;
             changeMap();
@@ -63,12 +63,14 @@ bool Menu::changebutton() {
 
 void Menu::changeMap() {
         Game_Obj::viev->renderClear();
+        std::cout << "numMap: " << _numMap << std::endl;
         Game_Obj::viev->drawChangeMap(_numMap);
+
         if (_key == 124 && _numMap != 2){//125 down
             _numMap += 1;
         }
         else if (_key == 123 && _numMap != 1){//126 up
-           _numMap--;
+            _numMap--;
         }
         if (_key == 36) {
             Mmap::getInstance().setMap(_numMap);
@@ -77,10 +79,11 @@ void Menu::changeMap() {
             _select = false;
         }
 }
+
 void Menu::moveArrow() {
-    if (_key == 125 && _numButton != 4){//125 down
-        _rectA.y += (_typeMenu == 3 && _numButton == 3) ? 0 :  _rectA.h + 10;
-        _numButton += (_typeMenu == 3 && _numButton == 3) ? 0 : 1;
+    if (_key == 125 && _numButton != 2){//125 down
+        _rectA.y += (_typeMenu == 3 && _numButton == 2) ? 0 :  _rectA.h + 10;
+        _numButton += (_typeMenu == 3 && _numButton == 2) ? 0 : 1;
         Game_Obj::music->playButton();
     }
     else if (_key == 126 && _numButton != 1){//126 up

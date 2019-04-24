@@ -23,6 +23,9 @@ unsigned Game_Obj::_frameDelay = 4000 / FPS;
 Game_Obj::Game_Obj() {}
 
 Game_Obj::~Game_Obj() {
+//    for(1){
+//        system("leaks Nibbler");
+//    }
     void    (*destroy_gui)(AView *);
     void    (*destroy_music)(Music*);
     destroy_gui = (void (*)(AView *))dlsym(dl_lib, "destroy_object");
@@ -67,8 +70,8 @@ bool Game_Obj::menu() {
 void Game_Obj::addMusicLib() {
     Music*		(*getInstance)();
 
-//    dl_music = dlopen("../lib_Music.dylib", RTLD_LAZY);
-    dl_music = dlopen("lib_Music.dylib", RTLD_LAZY);
+    dl_music = dlopen("../lib_Music.dylib", RTLD_LAZY);
+//    dl_music = dlopen("lib_Music.dylib", RTLD_LAZY);
     if (!dl_music) {
         std::cerr << "dl_error" << std::endl;
         exit(1);
@@ -107,12 +110,12 @@ void Game_Obj::addNewSharedLib() {
 }
 
 void Game_Obj::init() {
-//    library[0] = "../libSDL.dylib";
-//    library[1] = "../libSFML.dylib";
-//    library[2] = "../gl.dylib";
-    library[0] = "libSDL.dylib";
-    library[1] = "libSFML.dylib";
-    library[2] = "libGL.dylib";
+    library[0] = "../libSDL.dylib";
+    library[1] = "../libSFML.dylib";
+    library[2] = "../libGL.dylib";
+//    library[0] = "libSDL.dylib";
+//    library[1] = "libSFML.dylib";
+//    library[2] = "libGL.dylib";
     addNewSharedLib();
     addMusicLib();
     music->init();
