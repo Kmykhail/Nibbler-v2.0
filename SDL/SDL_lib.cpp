@@ -62,6 +62,7 @@ SDL_lib::~SDL_lib() {
 
 
 void SDL_lib::init() {
+    std::cout << "INIT SDL" << std::endl;
     /************INIT WINDOW************/
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
         std::cerr << "Trouble with init SDL" << std::endl;
@@ -117,7 +118,7 @@ void SDL_lib::init() {
     exit(1);
     }
 
-/************INIT TEXTURE FOR SNAKE************/
+///************INIT TEXTURE FOR SNAKE************/
     _snakeTexture = {{0, CREATE_TEXTURE((_dir + tail_path).c_str())}, {1, CREATE_TEXTURE((_dir + body_path).c_str())},
                      {2, CREATE_TEXTURE((_dir + head_path).c_str())}};
     if (_snakeTexture.empty()){
@@ -137,6 +138,7 @@ void SDL_lib::init() {
         std::cerr << "textuteBigFood not exist" << std::endl;
         exit(1);
     }
+
     /************INIT TEXTURE FOR LINE TIME OF SURP FOOD************/
     _textureLine = CREATE_TEXTURE((_dir + lineFood_path).c_str());
     if (!_textureLine){
@@ -168,6 +170,7 @@ void SDL_lib::init() {
 }
 
 void SDL_lib::initMap(int n) {
+    std::cout << "init map" << std::endl;
     if (n == 1){
         _textureMap = CREATE_TEXTURE((_dir + map_1).c_str());
         if (!_textureMap){
@@ -180,7 +183,7 @@ void SDL_lib::initMap(int n) {
         if (!_textureMap){
             std::cerr << "textuteMap not exist" << std::endl;
             exit(1);
-        }       
+        }
     }
 }
 
@@ -255,17 +258,11 @@ void SDL_lib::drawMenu(void* rectA, void* rectB, int typeMenu) {
     if (typeMenu == 3){
         SDL_RenderCopy(renderer, _buttonTexture["continue"], nullptr, & _mcrR);
         _mcrR.y += _mcrR.h + 10;// distance between continue and multi option
-//        SDL_RenderCopy(renderer, _buttonTexture["option"], nullptr, &_mcrR);
-//        _mcrR.y += _mcrR.h + 10;// distance between option and multi exit
         SDL_RenderCopy(renderer, _buttonTexture["exit"], nullptr, &_mcrR);
     }
     else {
         SDL_RenderCopy(renderer, _buttonTexture["single"], nullptr, &_mcrR);//single player
         _mcrR.y += _mcrR.h + 10;// distance between single and multi button
-//        SDL_RenderCopy(renderer, _buttonTexture["multi"], nullptr, &_mcrR);//multi player
-//        _mcrR.y += _mcrR.h + 10;// distance between multi and option
-//        SDL_RenderCopy(renderer, _buttonTexture["option"], nullptr, &_mcrR);
-//        _mcrR.y += _mcrR.h + 10;// distance between option and exit
         SDL_RenderCopy(renderer, _buttonTexture["exit"], nullptr, &_mcrR);
     }
 }
@@ -301,11 +298,16 @@ void SDL_lib::drawInterface(std::string clock, int score) {
     _tcrR.x = 50;
     _tcrR.y = HEIGHT_SCOREBOARD/2;
     SDL_RenderCopy(renderer, _textureText, nullptr, &_tcrR);
+    SDL_DestroyTexture(_textureText);
+    _textureText = nullptr;
+
     /***************DRAW SCORE****************/
     _textureText = CREATE_TEXTURETEXT(("Score:   " + std::to_string(score)).c_str(), _textColor, _tcrR);
     _tcrR.x = g_weight/3;
     _tcrR.y = HEIGHT_SCOREBOARD/2;
     SDL_RenderCopy(renderer, _textureText, nullptr, &_tcrR);
+    SDL_DestroyTexture(_textureText);
+    _textureText = nullptr;
 }
 
 void SDL_lib::drawTimeBigFood(int time) {
@@ -326,10 +328,16 @@ void SDL_lib::drawGameOver(int score) {
     _tcrR.y = (g_height / 3) * 2;
     SDL_RenderCopy(renderer, _textureScore, nullptr, &_tcrR);
 
+    SDL_DestroyTexture(_textureScore);
+    _textureScore = nullptr;
+
     _textureScore = CREATE_TEXTURETEXT("Please, press space key", _tColor, _tcrR);
     _tcrR.x = g_weight / 2 - (HEIGHT_SCOREBOARD + (HEIGHT_SCOREBOARD / 3));
     _tcrR.y = g_height - HEIGHT_SCOREBOARD;
     SDL_RenderCopy(renderer, _textureScore, nullptr, &_tcrR);
+
+    SDL_DestroyTexture(_textureScore);
+    _textureScore = nullptr;
 
 }
 void SDL_lib::drawChangeMap(int n) {
@@ -365,11 +373,11 @@ void SDL_lib::cleanWindow() {
     SDL_DestroyTexture(_textureText);
     SDL_DestroyTexture(_textureScore);
     SDL_DestroyTexture(_textureGameOver);
-    for(auto&& it : _snakeTexture){
+    for(auto& it : _snakeTexture){
         SDL_DestroyTexture(it.second);
     }
 
-    for(auto&& it : _buttonTexture){
+    for(auto& it : _buttonTexture){
         SDL_DestroyTexture(it.second);
     }
     TTF_CloseFont(_font);
@@ -379,6 +387,7 @@ void SDL_lib::cleanWindow() {
 
     SDL_DestroyWindow(_window);
     SDL_DestroyRenderer(renderer);
+    TTF_Quit();
     SDL_Quit();
     std::cout << "cleanWindow" << std::endl;
 }

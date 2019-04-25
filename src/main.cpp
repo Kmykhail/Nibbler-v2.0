@@ -61,11 +61,13 @@ int main(int argc, char **argv){
 
     HEIGHT_SCOREBOARD = g_weight / 14;
     _mapInit = false;
+
     try {
         std::shared_ptr<Game_Obj> obj(new Game_Obj);
         obj->init();
     }catch(...){
         std::cout << "Something wrong :)" << std::endl;
     }
+    system("leaks Nibbler");
     return 0;
 }

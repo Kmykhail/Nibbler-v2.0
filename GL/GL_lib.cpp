@@ -305,17 +305,11 @@ void GL_lib::drawMenu(void* rectA, void* rectB, int typeMenu) {
     if (typeMenu == 3){
         DrawEveryThing(_mcrR, _textureButton["continue"]);
         _mcrR.y += (_mcrR.h + 10) * -1;
-//        DrawEveryThing(_mcrR, _textureButton["option"]);
-//        _mcrR.y += (_mcrR.h + 10) * -1;
         DrawEveryThing(_mcrR, _textureButton["exit"]);
     }
     else{
         DrawEveryThing(_mcrR, _textureButton["single"]);
         _mcrR.y += (_mcrR.h + 10) * -1;
-//        DrawEveryThing(_mcrR, _textureButton["multi"]);
-//        _mcrR.y += (_mcrR.h + 10) * -1;
-//        DrawEveryThing(_mcrR, _textureButton["option"]);
-//        _mcrR.y += (_mcrR.h + 10) * -1;
         DrawEveryThing(_mcrR, _textureButton["exit"]);
     }
 }

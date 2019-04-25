@@ -45,7 +45,7 @@ bool Menu::changebutton() {
         if (_numButton == 2){
             return false;
         }
-        if (_numButton == 1){
+        if (_numButton == 1 && _typeMenu != 3){
             _numMap = 1;
             _selectMap = true;
             changeMap();

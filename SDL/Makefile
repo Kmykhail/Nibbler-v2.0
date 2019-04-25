@@ -11,6 +11,7 @@ INC = -I ~/.brew/include -I ../inc/
 
 LIBS = -L ~/.brew/lib -lSDL2 -lSDL2_image -lSDL2_ttf -rpath ~/.brew/lib
 
+#LIBS = -L /Library/Frameworks/SDL2.framework  -rpath ~/.brew/lib
 
 all: $(NAME)
 
