@@ -382,6 +382,22 @@ void GL_lib::drawChangeMap(int n) {
 }
 
 void GL_lib::cleanWindow() {
+    glDeleteTextures(1, &_textureMap);
+    glDeleteTextures(1, &_map1);
+    glDeleteTextures(1, &_map2);
+    glDeleteTextures(1, &_textureFood);
+    glDeleteTextures(1, &_textureBigFood);
+    glDeleteTextures(1, &_textureArrow);
+    glDeleteTextures(1, &_textureLine);
+    glDeleteTextures(1, &_textureGameOver);
+    for (auto& it : _textureButton){
+        glDeleteTextures(1, &it.second);
+    }
+
+    for (auto& it : _textureSnake){
+        glDeleteTextures(1, &
+        it.second);
+    }
     delete _font;
     glfwDestroyWindow(_window);
     glfwTerminate();
