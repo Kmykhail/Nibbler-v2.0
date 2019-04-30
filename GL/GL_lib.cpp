@@ -398,7 +398,7 @@ void GL_lib::cleanWindow() {
         glDeleteTextures(1, &
         it.second);
     }
-    delete _font;
+//    delete _font;
     glfwDestroyWindow(_window);
     glfwTerminate();
 }
