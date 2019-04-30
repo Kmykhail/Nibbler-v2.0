@@ -8,7 +8,7 @@
 
 class Menu {
 public:
-    Menu() noexcept;
+    explicit Menu() noexcept;
     ~Menu();
     void    initMenu();
     void    setKey(int key);
@@ -19,13 +19,17 @@ public:
     void    changeSize();
     void    changeMap();
 private:
-    int _numButton;//number of button
-    char _key;//w,a,s,d
+    int _numButton;
+    char _key;
     int _size_block;
-    t_scr _rectA;//struct for render Arrow texture
-    t_scr _rectB;//struct for render Button texture
-    bool _select;//flag for select menu
+    t_scr _rectA;
+    t_scr _rectB;
+    bool _select;
     bool _selectMap;
-    int  _typeMenu;//flag for 1 is Start_menu, 2 is Escape_Menu, 3 is Pause_menu
+    int  _typeMenu;
     void moveArrow();
+    Menu(const Menu&) = delete;
+    Menu& operator=(const Menu&) = delete;
+    Menu(Menu&&) = delete;
+    Menu& operator=(Menu&&) = delete;
 };

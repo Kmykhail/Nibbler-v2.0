@@ -50,16 +50,6 @@ void Logic::init(int n_pl) {
     }
 }
 
-//int Logic::getNumberSprite(int itr) {
-//    if (!itr){
-//        return 0;
-//    }
-//    else if (itr < _cors.size() - 1){
-//        return 1;
-//    }
-//    return 2;
-//}
-
 void Logic::setKey(int key) {
     if (key >= 123 && key <= 126 && _pl == 2){
         if (key == 126 || key == 125){

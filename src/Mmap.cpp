@@ -166,13 +166,3 @@ void Mmap::setMap(int n) {
 void Mmap::setValueInMap(int val, const int y, const int x) { (*_mmap)[y][x] = val;}
 
 int Mmap::getValueFromMap(const int y, const int x) const { return (*_mmap)[y][x]; }
-
-void Mmap::printMmap() const{
-    for (int i = 0; i < 67; ++i) {
-        for (int j = 0; j < 90; ++j) {
-            std::cout << (*_mmap)[i][j];
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-}

@@ -11,7 +11,6 @@
 
 class SDL_lib : public AView{
 public:
-    SDL_lib();
     SDL_lib(int weight, int height);
     virtual ~SDL_lib();
     void    init() override;
@@ -50,12 +49,12 @@ private:
     static TTF_Font *_game_over;
     SDL_Color           _textColor;
     SDL_Color           _tColor;
-    SDL_Rect    _mcrR;//menu
-    SDL_Rect    _scrR;//snake
-    SDL_Rect    _fcrR;//food
-    SDL_Rect    _tcrR;//text
+    SDL_Rect    _mcrR;
+    SDL_Rect    _scrR;
+    SDL_Rect    _fcrR;
+    SDL_Rect    _tcrR;
     SDL_Rect    _lcrR;
-    SDL_Rect    _gcrR;// game over
+    SDL_Rect    _gcrR;
     int g_weight;
     int g_height;
     int HEIGHT_SCOREBOARD;

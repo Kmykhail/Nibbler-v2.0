@@ -21,6 +21,11 @@ public:
     void stopMusic() override;
 
 private:
+    Music_lib(const Music_lib&) = delete;
+    Music_lib&operator=(const Music_lib&) = delete;
+
+    Music_lib(Music_lib&&) = delete;
+    Music_lib&operator=(Music_lib&&) = delete;
     sf::SoundBuffer buffer;
     sf::SoundBuffer buffer2;
     sf::SoundBuffer buffer3;

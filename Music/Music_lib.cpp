@@ -6,9 +6,7 @@
 #include <thread>
 #include <chrono>
 
-Music_lib::Music_lib() {
-
-}
+Music_lib::Music_lib() {}
 
 Music_lib::~Music_lib() {
 

@@ -16,22 +16,21 @@ public:
     Food &operator=(const Food&) = delete;
     Food &operator=(Food&&) = delete;
     ~Food();
+
     void    updateFood();
     void    restart();
     void    changeSize(int);
-
     static std::vector<std::pair<int, int>> _coorOnMap;
 
 private:
     void    mandatoryFood();
     void    surpriseFood();
-    t_scr _rectLil;//struct for render texture smallFood
-    t_scr _rectBig;//struct for render texture bigFood
+    t_scr _rectLil;
+    t_scr _rectBig;
     t_coor _coorLilFood;
     t_coor _coorBigFood;
 
     int _size_block;
-//    int _cntCreateFood;
     bool _drawBig;
     std::chrono::time_point<std::chrono::system_clock> startBig;
 };

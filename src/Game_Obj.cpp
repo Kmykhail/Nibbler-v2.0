@@ -23,7 +23,6 @@ unsigned Game_Obj::_frameDelay = 4000 / FPS;
 Game_Obj::Game_Obj() {}
 
 Game_Obj::~Game_Obj() {
-    std::cout << "Start Game_Obj::~Game_Obj" << std::endl;
     void    (*destroy_gui)(AView *);
     void    (*destroy_music)(Music*);
     destroy_gui = (void (*)(AView *))dlsym(dl_lib, "destroy_object");
@@ -37,7 +36,6 @@ Game_Obj::~Game_Obj() {
     if (this->dl_music != NULL) {
         dlclose(this->dl_music);
     }
-    std::cout << "End Game_Obj::~Game_Obj" << std::endl;
 }
 
 void *Game_Obj:: dl_lib = nullptr;
@@ -46,7 +44,6 @@ AView*  Game_Obj::viev = nullptr;
 Music*  Game_Obj::music = nullptr;
 
 bool Game_Obj::menu() {
-    std::cout << "Start Game_Obj::menu" << std::endl;
     int const frameDealy = 4000 / FPS;
     while(_menu.runningMenu()){
         viev->renderClear();
@@ -64,32 +61,26 @@ bool Game_Obj::menu() {
         viev->render();
     }
     music->playMusic();
-    std::cout << "End Game_Obj::menu" << std::endl;
     return true;
 }
 
 void Game_Obj::addMusicLib() {
-    std::cout << "Start Game_Obj::addMusicLib" << std::endl;
     Music*		(*getInstance)();
 
-    dl_music = dlopen("../lib_Music.dylib", RTLD_LAZY);
-//    dl_music = dlopen("lib_Music.dylib", RTLD_LAZY);
+    dl_music = dlopen("lib_Music.dylib", RTLD_LAZY);
     if (!dl_music) {
-        std::cerr << "dl_error" << std::endl;
+        std::cerr << "dl_error OPEN Music" << std::endl;
         exit(1);
     }
     getInstance = reinterpret_cast<Music*(*)()> (dlsym(dl_music, "getInstance"));
     if (!getInstance) {
-        std::cerr << "dl_error" << std::endl;
+        std::cerr << "dl_error GetInstance Music" << std::endl;
         exit(1);
     }
     music = getInstance();
-    std::cout << "End Game_Obj::addMusicLib" << std::endl;
-
 }
 
 void Game_Obj::addNewSharedLib() {
-    std::cout << "Start Game_Obj::addNewSharedLib" << std::endl;
     AView*		(*getInstance)(int, int);
     void	(*destroy_gui)(AView *);
 
@@ -98,11 +89,12 @@ void Game_Obj::addNewSharedLib() {
         destroy_gui(viev);
         dlclose(dl_lib);
         dl_lib = NULL;
+        viev = nullptr;
     }
 
     dl_lib = dlopen(library[g_lib - 1].c_str(), RTLD_LAZY);
     if (!dl_lib) {
-        std::cerr << "dl_error" << std::endl;
+        std::cerr << "dl_error OPEN Graphic" << std::endl;
         exit(1);
     }
     getInstance = reinterpret_cast<AView*(*)(int, int)> (dlsym(dl_lib, "getInstance"));
@@ -110,18 +102,16 @@ void Game_Obj::addNewSharedLib() {
         std::cerr << "Error getInstance" << std::endl;
         exit(1);
     }
-    viev = getInstance(g_weight, g_height);
-    std::cout << "End Game_Obj::addNewSharedLib" << std::endl;
+    if (!(viev = getInstance(g_weight, g_height))){
+        std::cerr << "Error VIEW" << std::endl;
+        exit(1);
+    }
 }
 
 void Game_Obj::init() {
-    std::cout << "Start Game_Obj::init" << std::endl;
-    library[0] = "../libSDL.dylib";
-    library[1] = "../libSFML.dylib";
-    library[2] = "../libGL.dylib";
-//    library[0] = "libSDL.dylib";
-//    library[1] = "libSFML.dylib";
-//    library[2] = "libGL.dylib";
+    library[0] = "libSDL.dylib";
+    library[1] = "libSFML.dylib";
+    library[2] = "libGL.dylib";
     addNewSharedLib();
     addMusicLib();
     music->init();
@@ -142,11 +132,9 @@ void Game_Obj::init() {
     _food.updateFood();
     viev->render();
     main_loop();
-    std::cout << "End Game_Obj::init" << std::endl;
 }
 
 void Game_Obj::main_loop() {
-    std::cout << "Start Game_Obj::main_loop" << std::endl;
     music->playMusic();
     while(1){
         viev->renderClear();
@@ -166,11 +154,9 @@ void Game_Obj::main_loop() {
         }
     }
     viev->cleanWindow();
-    std::cout << "End Game_Obj::main_loop" << std::endl;
 }
 
 bool Game_Obj::escapeLogic() {
-    std::cout << "Start Game_Obj::escapeLogic" << std::endl;
     int const frameDealy = 4000 / FPS;
     _menu.escapeDialog();
     _mapInit = false;
@@ -198,38 +184,26 @@ bool Game_Obj::escapeLogic() {
     }
     Interface::getInstance().restart();
     music->playMusic();
-    std::cout << "End Game_Obj::escapeLogic" << std::endl;
     return true;
 }
 
 bool Game_Obj::pauseLogic() {
-    std::cout << "Start Game_Obj::pauseLogic" << std::endl;
     music->stopMusic();
     _menu.pauseDialog();
-    std::cout << "End Game_Obj::pauseLogic" << std::endl;
     return menu();
 }
 
 bool Game_Obj::action() {
-    std::cout << "Start Game_Obj::action" << std::endl;
     int key = handleEvent();
     if (key == -1 || (key == ' ' && !pauseLogic())){
-        std::cout << "End Game_Obj::action" << std::endl;
         return false;
     }
     update();
     viev->render();
-    key = handleEvent();
-    if (key == -1 || (key == ' ' && !pauseLogic())){
-        std::cout << "End Game_Obj::action" << std::endl;
-        return false;
-    }
-    std::cout << "End Game_Obj::action" << std::endl;
     return true;
 }
 
 void Game_Obj::switchLib(int symb) {
-    std::cout << "Start Game_Obj::switchLib" << std::endl;
     viev->cleanWindow();
     if (symb == 2) {
         g_height *=2;
@@ -253,13 +227,11 @@ void Game_Obj::switchLib(int symb) {
     viev->init();
     if (_mapInit) {
         viev->initMap(_numMap);
-    }
-    std::cout << "End Game_Obj::switchLib" << std::endl;
+    };
 }
 
 
 int Game_Obj::handleEvent() {
-    std::cout << "Start Game_Obj::handleEvent" << std::endl;
     int symb = viev->catchHook();
     if (symb == -1) {
         return symb;
@@ -270,15 +242,12 @@ int Game_Obj::handleEvent() {
     else if (symb != 0) {
         (!_menu.runningMenu() && symb != ' ') ? _logic.setKey(symb) : _menu.setKey(symb);
     }
-    std::cout << "End Game_Obj::handleEvent" << std::endl;
     return symb;
 }
 
 void Game_Obj::update() {
-    std::cout << "Start Game_Obj::update" << std::endl;
     viev->drawMap();
     _logic.move();
     Interface::getInstance().changeTimeAndScore();
    _food.updateFood();
-    std::cout << "End dGame_Obj::update" << std::endl;
 }

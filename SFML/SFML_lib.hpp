@@ -14,9 +14,8 @@
 
 class SFML_lib: public AView{
 public:
-    SFML_lib();
-    SFML_lib(int g_weight, int g_height);
-    virtual ~SFML_lib();
+    explicit SFML_lib(int g_weight, int g_height);
+    ~SFML_lib();
 
     void    init() override;
     void    initMap(int) override;
@@ -63,5 +62,10 @@ private:
     int height_scoreboard;
     int sizeFont;
     std::string _dir;
+    SFML_lib(const SFML_lib&) = delete;
+    SFML_lib& operator=(const SFML_lib&) = delete;
+
+    SFML_lib(SFML_lib&&) = delete;
+    SFML_lib& operator=(SFML_lib&&) = delete;
 };
 

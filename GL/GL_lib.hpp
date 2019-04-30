@@ -63,9 +63,13 @@ private:
 
     void LoadImage();
     void DrawEveryThing(t_glScr glScr, GLuint& drawThis);
+    GL_lib(const GL_lib&) = delete;
+    GL_lib& operator=(const GL_lib&) = delete;
+
+    GL_lib(GL_lib&&) = delete;
+    GL_lib&operator=(GL_lib&&) = delete;
 public:
-    GL_lib();
-    GL_lib(int weight, int height);
+    explicit GL_lib(int weight, int height);
     ~GL_lib();
     void    init() override;
     void    initMap(int) override;

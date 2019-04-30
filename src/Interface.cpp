@@ -12,9 +12,7 @@ Interface:: Interface() {
     time = 0;
 }
 
-Interface:: ~Interface() {
-
-}
+Interface:: ~Interface() {}
 
 Interface& Interface::getInstance() {
     static Interface inst;

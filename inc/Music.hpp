@@ -8,8 +8,7 @@
 
 class Music {
 public:
-    Music() {}
-    ~Music() {}
+    virtual ~Music() {}
     virtual void init() = 0;
     virtual void playMusic() = 0;
     virtual void playEat() = 0;

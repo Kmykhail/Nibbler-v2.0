@@ -68,6 +68,5 @@ int main(int argc, char **argv){
     }catch(...){
         std::cout << "Something wrong :)" << std::endl;
     }
-    system("leaks Nibbler");
     return 0;
 }

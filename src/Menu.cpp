@@ -63,7 +63,6 @@ bool Menu::changebutton() {
 
 void Menu::changeMap() {
         Game_Obj::viev->renderClear();
-        std::cout << "numMap: " << _numMap << std::endl;
         Game_Obj::viev->drawChangeMap(_numMap);
 
         if (_key == 124 && _numMap != 2){//125 down

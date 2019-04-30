@@ -32,27 +32,21 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
     if (action == GLFW_PRESS){
         switch (key){
             case GLFW_KEY_ESCAPE:
-                std::cout << "PAUSE" << std::endl;
                 GL_lib::_buttonStatus = ' ';
                 return;
             case GLFW_KEY_W:
-                std::cout << "w" << std::endl;
                 GL_lib::_buttonStatus = 'w';
                 return;
             case GLFW_KEY_S:
-                std::cout << "s" << std::endl;
                 GL_lib::_buttonStatus= 's';
                 return;
             case GLFW_KEY_D:
-                std::cout << "d" << std::endl;
                 GL_lib::_buttonStatus= 'd';
                 return;
             case GLFW_KEY_A:
-                std::cout << "a" << std::endl;
                 GL_lib::_buttonStatus= 'a';
                 return;
             case GLFW_KEY_SPACE:
-                std::cout << "space" << std::endl;
                 GL_lib::_buttonStatus= ' ';
                 return;
             case GLFW_KEY_UP:
@@ -69,14 +63,14 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
                 return;
             case GLFW_KEY_ENTER:
                 GL_lib::_buttonStatus = 36;
-                return;//enter
-            case GLFW_KEY_1://change current lib on SDL
+                return;
+            case GLFW_KEY_1:
                 GL_lib::_buttonStatus = 1;
                 return;
-            case GLFW_KEY_2://change current lib on SFML
+            case GLFW_KEY_2:
                 GL_lib::_buttonStatus = 2;
                 return;
-            case GLFW_KEY_3://change current lib on ALLEGRO
+            case GLFW_KEY_3:
                 GL_lib::_buttonStatus = 3;
                 return;
             default:
@@ -86,8 +80,6 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
     }
 }
 
-GL_lib::GL_lib() {}
-
 GL_lib::GL_lib(int weight, int height) {
     g_weight = weight;
     g_height = height;
@@ -96,9 +88,7 @@ GL_lib::GL_lib(int weight, int height) {
     _size_block = (g_weight / 90);
 }
 
-GL_lib::~GL_lib() {
-    std::cout << "CLOSE LIB OpenGL" << std::endl;
-}
+GL_lib::~GL_lib() {}
 
 void GL_lib::init()
 {
@@ -115,14 +105,19 @@ void GL_lib::init()
     glfwSetKeyCallback(_window, keyCallback);
     glfwMakeContextCurrent(_window);
 
-    if (!glfwGetCurrentContext()){
-        std::cerr << "Couldn't create OpenGL context" << std::endl;
-        exit(1);
+    glewExperimental = GL_TRUE;
+
+    GLenum glewError = glewInit();
+
+    if (glewError != GLEW_OK)
+    {
+        std::cout << "ERROR GL_lib::init" << std::endl;
+        glfwTerminate();
+        exit(EXIT_FAILURE);
     }
 
-    GLenum err = glewInit();
-    if (GLEW_OK != err){
-        std::cerr << glewGetErrorString(err) <<std::endl;
+    if (!glfwGetCurrentContext()){
+        std::cerr << "Couldn't create OpenGL context" << std::endl;
         exit(1);
     }
 
@@ -213,7 +208,6 @@ void GL_lib::LoadImage()
     }
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-    std::cout << "LOAD DONE" << std::endl;
 }
 
 void GL_lib::DrawEveryThing(t_glScr glScr, GLuint &drawThis) {
@@ -398,7 +392,7 @@ void GL_lib::cleanWindow() {
         glDeleteTextures(1, &
         it.second);
     }
-//    delete _font;
+    delete _font;
     glfwDestroyWindow(_window);
     glfwTerminate();
 }
@@ -409,7 +403,6 @@ extern "C"  AView* getInstance(int weight, int height) {
 
 extern "C" void destroy_object(GL_lib *gui)
 {
-    printf("delete\n");
     delete gui;
 }
 

@@ -5,7 +5,7 @@ SRC = SDL_lib.cpp TextureManager.cpp
 
 CFLAGS = -Wall -Wextra -Werror -std=c++11 -dynamiclib -fPIC
 
-CC = g++
+CC = g++ -shared
 
 INC = -I ~/.brew/include -I ../inc/
 

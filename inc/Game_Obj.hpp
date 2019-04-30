@@ -18,8 +18,8 @@ public:
     void    init();
     int     handleEvent();
     void    update();
-    static AView * viev;
-    static Music *music;
+    static  AView * viev;
+    static  Music *music;
 
 private:
     static Game_Obj *_inst;

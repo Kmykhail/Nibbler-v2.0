@@ -4,7 +4,7 @@ SRC = GL_lib.cpp
 
 CFLAGS = -std=c++11 -dynamiclib -fPIC
 
-CC = g++
+CC = g++ -shared
 
 INC = -I ~/.brew/include -I ~/.brew/SOIL/src -I ~/.brew/include/freetype2 -I ../inc/
 

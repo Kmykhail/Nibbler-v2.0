@@ -5,7 +5,6 @@
 #include "SDL_lib.hpp"
 #include "global.h"
 #include <unistd.h>
-#include "Mmap.hpp"
 #include <stdio.h>
 #define CREATE_TEXTURE(str) TextureManager::getInstance().LoadTexture(str)
 #define CREATE_TEXTURETEXT(str, color, tcrR) TextureManager::getInstance().LoadTextureText(str, color, tcrR)
@@ -19,9 +18,7 @@ const char lilFood[] = "/Picture/lilfood.png";
 const char bigFood[] = "/Picture/bigfood.png";
 const char buttonSingle_path[] = "/Picture/button1.png";
 const char buttonMulti_path[] = "/Picture/button2.png";
-
 const char lineFood_path[] = "/Picture/lineTimeFood.png";
-
 extern const char buttonOption_path[] = "/Picture/options.png";
 extern const char buttonContinue_path[] = "/Picture/continue.png";
 extern const char buttonExit_path[] = "/Picture/exit.png";
@@ -45,8 +42,6 @@ TTF_Font*       SDL_lib::_font = nullptr;
 TTF_Font*       SDL_lib::_game_over = nullptr;
 
 
-SDL_lib::SDL_lib() {}
-
 SDL_lib::SDL_lib(int weight, int height) {
 
     g_weight = weight;
@@ -56,16 +51,16 @@ SDL_lib::SDL_lib(int weight, int height) {
 
 }
 
-SDL_lib::~SDL_lib() {
-    std::cout << "CLOSE LIB SDL" << std::endl;
-}
-
+SDL_lib::~SDL_lib() {}
 
 void SDL_lib::init() {
-    std::cout << "INIT SDL" << std::endl;
     /************INIT WINDOW************/
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
+    if (SDL_Init(SDL_INIT_EVENTS) != 0){
         std::cerr << "Trouble with init SDL" << std::endl;
+        exit(-1);
+    }
+    if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+        std::cerr << "Trouble with init IMG SDL" << std::endl;
         exit(-1);
     }
     _window = SDL_CreateWindow(
@@ -83,7 +78,7 @@ void SDL_lib::init() {
     renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
         std::cerr << "Trouble wih render" << std::endl;
-        return;
+        exit(-1);
     }
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);//BAG NOT WORKING
     SDL_RenderClear(renderer);
@@ -118,7 +113,7 @@ void SDL_lib::init() {
     exit(1);
     }
 
-///************INIT TEXTURE FOR SNAKE************/
+   /************INIT TEXTURE FOR SNAKE************/
     _snakeTexture = {{0, CREATE_TEXTURE((_dir + tail_path).c_str())}, {1, CREATE_TEXTURE((_dir + body_path).c_str())},
                      {2, CREATE_TEXTURE((_dir + head_path).c_str())}};
     if (_snakeTexture.empty()){
@@ -170,7 +165,6 @@ void SDL_lib::init() {
 }
 
 void SDL_lib::initMap(int n) {
-    std::cout << "init map" << std::endl;
     if (n == 1){
         _textureMap = CREATE_TEXTURE((_dir + map_1).c_str());
         if (!_textureMap){
@@ -187,7 +181,6 @@ void SDL_lib::initMap(int n) {
     }
 }
 
-
 int SDL_lib::catchHook(){
     while(SDL_PollEvent(&_event) != 0) {
         if (_event.type == SDL_QUIT) {
@@ -197,19 +190,14 @@ int SDL_lib::catchHook(){
         if (_event.type == SDL_KEYDOWN) {
             switch (_event.key.keysym.sym) {
                 case SDLK_ESCAPE:
-                    std::cout << "PAUSE" << std::endl;
                     return ' ';
                 case SDLK_w:
-                    std::cout << "w" << std::endl;
                     return 'w';
                 case SDLK_s:
-                    std::cout << "s" << std::endl;
                     return 's';
                 case SDLK_d:
-                    std::cout << "d" << std::endl;
                     return 'd';
                 case SDLK_a:
-                    std::cout << "a" << std::endl;
                     return 'a';
                 case SDLK_SPACE:
                     return ' ';
@@ -222,12 +210,12 @@ int SDL_lib::catchHook(){
                 case SDLK_RIGHT:
                     return 124;
                 case SDLK_RETURN:
-                    return 36;//enter
-                case SDLK_1://change current lib on SDL
+                    return 36;
+                case SDLK_1:
                     return 1;
-                case SDLK_2://change current lib on SFML
+                case SDLK_2:
                     return 2;
-                case SDLK_3://change current lib on ALLEGRO
+                case SDLK_3:
                     return 3;
                 default:
                     return 0;
@@ -382,14 +370,12 @@ void SDL_lib::cleanWindow() {
     }
     TTF_CloseFont(_font);
     TTF_CloseFont(_game_over);
-    _font = nullptr;
-    _game_over = nullptr;
 
-    SDL_DestroyWindow(_window);
     SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(_window);
+    IMG_Quit();
     TTF_Quit();
     SDL_Quit();
-    std::cout << "cleanWindow" << std::endl;
 }
 
 extern "C"  AView* getInstance(int weight, int height) {
@@ -398,6 +384,5 @@ extern "C"  AView* getInstance(int weight, int height) {
 
 extern "C" void		destroy_object(SDL_lib *gui)
 {
-    printf("delete\n");
     delete gui;
 }

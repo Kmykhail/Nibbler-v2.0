@@ -23,24 +23,17 @@ const char font_path[] = "/Picture/ArialItalic.ttf";
 
 sf::RenderWindow* SFML_lib::_window = nullptr;
 
-SFML_lib::SFML_lib() {
-    std::cout << "CLOSE LIB SFML" << std::endl;
-}
-
 SFML_lib::SFML_lib(int g_weight, int g_height) {
     weight = g_weight;
     height = g_height;
     height_scoreboard = g_weight / 14;
     sizeFont = height_scoreboard / 4;
-
 }
 
-SFML_lib::~SFML_lib() {
-
-}
+SFML_lib::~SFML_lib() {}
 
 void SFML_lib::init() {
-    _window = new sf::RenderWindow(sf::VideoMode(weight, height + height_scoreboard, 32), "Nibbler");
+    _window = new sf::RenderWindow(sf::VideoMode(weight, height + height_scoreboard, 32), "Nibbler", sf::Style::Close);
     char path[4096];
     _dir = getwd(path);
     _textureMap1.loadFromFile((_dir + map_1).c_str());
@@ -151,12 +144,6 @@ void SFML_lib::drawMenu(void* rectA, void* rectB, int typeMenu) {
         button.setScale(float(B.w) / size.x, float(B.h) / size.y);
         button.setPosition(B.x, B.y);
         _window->draw(button);
-//        button.setTexture(_buttonTexture["option"]);
-//        size = button.getTexture()->getSize();
-//        button.setScale(float(B.w) / size.x, float(B.h) / size.y);
-//        B.y += B.h + 10;
-//        button.setPosition(B.x, B.y);
-//        _window->draw(button);
         button.setTexture(_buttonTexture["exit"]);
         size = button.getTexture()->getSize();
         button.setScale(float(B.w) / size.x, float(B.h) / size.y);
@@ -170,18 +157,6 @@ void SFML_lib::drawMenu(void* rectA, void* rectB, int typeMenu) {
         button.setScale(float(B.w)/size.x, float(B.h)/size.y);
         button.setPosition(B.x, B.y);
         _window->draw(button);
-//        button.setTexture(_buttonTexture["multi"]);
-//        size = button.getTexture()->getSize();
-//        button.setScale(float(B.w)/size.x, float(B.h)/size.y);
-//        B.y += B.h + 10;
-//        button.setPosition(B.x, B.y);
-//        _window->draw(button);
-//        button.setTexture(_buttonTexture["option"]);
-//        size = button.getTexture()->getSize();
-//        button.setScale(float(B.w)/size.x, float(B.h)/size.y);
-//        B.y += B.h + 10;
-//        button.setPosition(B.x, B.y);
-//        _window->draw(button);
         button.setTexture(_buttonTexture["exit"]);
         size = button.getTexture()->getSize();
         button.setScale(float(B.w)/size.x, float(B.h)/size.y);
@@ -202,7 +177,7 @@ void SFML_lib::drawMap() {
     _window->draw(map);
 }
 
-void SFML_lib::drawSnake(void* rect, int b_block) {//b_block - wich texture render: tail, body, head
+void SFML_lib::drawSnake(void* rect, int b_block) {
     t_scr _fcrR = *reinterpret_cast<t_scr*>(rect);
     snake.setTexture(_snakeTexture[b_block]);
     auto size = snake.getTexture()->getSize();

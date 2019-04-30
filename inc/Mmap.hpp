@@ -12,7 +12,6 @@ public:
     void        setValueInMap(int val, const int y, const int x);
     int         getValueFromMap(const int y, const int x) const;
     void        setMap(int n);
-    void    printMmap() const;
 private:
     Mmap();
     Mmap(const Mmap &) = delete;
@@ -21,5 +20,4 @@ private:
     Mmap &operator=(Mmap &&) = delete;
     ~Mmap();
     int (*_mmap)[67][90];
-
 };
